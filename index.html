@@ -195,6 +195,14 @@
             background-clip: text;
             z-index: 1;
             pointer-events: none;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.5s ease-out;
+        }
+
+        .cards-section-title.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .search-icon {
@@ -255,6 +263,14 @@
             max-width: 1600px;
             padding: 0 20px;
             display: block;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.5s ease-out;
+        }
+
+        .bottom-cards-section-title.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .bottom-cards-section-description {
@@ -303,6 +319,14 @@
             text-align: center;
             position: relative;
             transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .info-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 1.5s ease-out;
         }
 
         .info-card-dark {
@@ -446,6 +470,14 @@
             box-shadow: 
                 0 4px 15px rgba(0, 0, 0, 0.05),
                 inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.5s ease-out;
+        }
+
+        .tech-insight-bubble.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .tech-insight-bubble-text {
@@ -490,6 +522,14 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.3);
             overflow: hidden;
             position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.5s ease-out;
+        }
+
+        .eye-bubble.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .eye-bubble-1 {
@@ -563,6 +603,14 @@
             width: 100%;
             height: auto;
             object-fit: contain;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.5s ease-out;
+        }
+
+        .sentence-image.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .info-modules-container {
@@ -591,6 +639,14 @@
             padding: 30px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .info-module.revealed {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 1.5s ease-out;
         }
 
         .info-module:nth-child(2) {
@@ -1348,7 +1404,7 @@
 </head>
 <body>
     <div class="navigation-bar">
-        <div class="nav-name">郑泳诗</div>
+        <div class="nav-name">Sissi 郑泳诗</div>
         <div class="nav-logo"></div>
     </div>
     
@@ -1367,7 +1423,7 @@
         <div class="scroll-content">
             <div class="cards-container">
                 <div class="cards-section-subtitle">手机用户为什么要用快捷搜索模块？</div>
-                <div class="cards-section-title">快捷搜索：动机与情景拆解</div>
+                <div class="cards-section-title">快捷搜索：动机与痛点</div>
                 <div class="card">
                     <div class="card-content">
                         <h3 class="card-subtitle"><span style="color: #E9685E;">启动类</span>意图</h3>
@@ -1963,6 +2019,93 @@
                     step3Overlay.classList.add('revealed');
                 }
             }
+            
+            // 大标题动画效果
+            const cardsSectionTitle = document.querySelector('.cards-section-title');
+            const bottomCardsSectionTitle = document.querySelector('.bottom-cards-section-title');
+            const techInsightTitle = document.querySelector('.tech-insight-title');
+            const designStrategyTitle = document.querySelector('.design-strategy-title');
+            const interfaceDisplayTitle = document.querySelector('.interface-display-title');
+            
+            if (cardsSectionTitle) {
+                const rect = cardsSectionTitle.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    cardsSectionTitle.classList.add('revealed');
+                }
+            }
+            
+            if (bottomCardsSectionTitle) {
+                const rect = bottomCardsSectionTitle.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    bottomCardsSectionTitle.classList.add('revealed');
+                }
+            }
+            
+            if (techInsightTitle) {
+                const rect = techInsightTitle.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    techInsightTitle.classList.add('revealed');
+                }
+            }
+            
+            if (designStrategyTitle) {
+                const rect = designStrategyTitle.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    designStrategyTitle.classList.add('revealed');
+                }
+            }
+            
+            if (interfaceDisplayTitle) {
+                const rect = interfaceDisplayTitle.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    interfaceDisplayTitle.classList.add('revealed');
+                }
+            }
+            
+            // sentence图片动画效果
+            const sentenceImage = document.querySelector('.sentence-image');
+            if (sentenceImage) {
+                const rect = sentenceImage.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    sentenceImage.classList.add('revealed');
+                }
+            }
+            
+            // info模块动画效果
+            const infoModules = document.querySelectorAll('.info-module');
+            infoModules.forEach(module => {
+                const rect = module.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    module.classList.add('revealed');
+                }
+            });
+            
+            // eye气泡动画效果
+            const eyeBubbles = document.querySelectorAll('.eye-bubble');
+            eyeBubbles.forEach(bubble => {
+                const rect = bubble.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    bubble.classList.add('revealed');
+                }
+            });
+            
+            // info卡片动画效果（界面优化目标下的两个黑白气泡）
+            const infoCards = document.querySelectorAll('.info-card');
+            infoCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    card.classList.add('revealed');
+                }
+            });
+            
+            // tech-insight气泡动画效果（前沿技术洞悉下面的3个小白底文字气泡）
+            const techInsightBubbles = document.querySelectorAll('.tech-insight-bubble');
+            techInsightBubbles.forEach(bubble => {
+                const rect = bubble.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    bubble.classList.add('revealed');
+                }
+            });
             
             ticking = false;
         }

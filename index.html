@@ -13,10 +13,88 @@
 
         body {
             background: #f8f9fa;
-            margin: 0;
-            padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             overflow-x: hidden;
+        }
+
+        /* 通用容器样式 */
+        .container-1200 {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container-1000 {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container-1600 {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 通用动画效果 */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .fade-in-up.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 通用标题样式 */
+        .section-title {
+            font-size: 4rem;
+            font-weight: 600;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            max-width: 1600px;
+            padding: 0 20px;
+            display: block;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.5s ease-out;
+        }
+
+        .section-title.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title.orange-gradient {
+            background: linear-gradient(135deg, 
+                #E9685E 0%, 
+                #F2AC3E 50%, 
+                #E9685E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title.dark-gradient {
+            background: linear-gradient(135deg, 
+                #1a1a1a 0%, 
+                #4d1a1a 25%, 
+                #2a1a1a 50%, 
+                #5d1a1a 75%, 
+                #3d1a1a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .landing-container {
@@ -26,8 +104,9 @@
             width: 100%;
             height: 100vh;
             background: #000000;
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 1s ease-out;
             z-index: 1;
+            will-change: transform, opacity;
         }
 
         .landing-container.scrolled {
@@ -42,7 +121,7 @@
 
         .landing-container.fade-out {
             opacity: 0;
-            transform: translateY(-50px) scale(0.95);
+            transform: translateY(-20px) scale(0.99);
         }
 
         .navigation-bar {
@@ -69,7 +148,17 @@
             padding: 0 24px;
             overflow: hidden;
             position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
+
+        .navigation-bar:hover {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
 
         .navigation-bar::before {
             content: '';
@@ -156,6 +245,8 @@
             width: 100%;
             height: 600px;
             background: transparent;
+            transform: translateZ(0);
+            will-change: transform;
         }
 
         .scroll-content {
@@ -205,30 +296,6 @@
             transform: translateY(0);
         }
 
-        .search-icon {
-            position: absolute;
-            top: -50px;
-            left: 0;
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, 
-                #E9685E 0%, 
-                #F2AC3E 50%, 
-                #E9685E 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .search-icon::before {
-            content: '🔍';
-            font-size: 20px;
-            color: white;
-            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
-        }
 
         .cards-section-subtitle {
             position: absolute;
@@ -593,10 +660,6 @@
             display: flex;
             justify-content: center;
             margin: 40px auto 0 auto;
-            max-width: 1200px;
-            padding: 0 20px 0 20px;
-            position: relative;
-            z-index: 10;
         }
 
         .sentence-image {
@@ -616,11 +679,6 @@
         .info-modules-container {
             display: flex;
             gap: 40px;
-            margin: 0 auto;
-            max-width: 1200px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
         }
 
         .info-module {
@@ -724,6 +782,54 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .strategy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                400px circle at 50% 50%,
+                rgba(255, 255, 255, 0.3),
+                rgba(255, 255, 255, 0.1) 30%,
+                transparent 60%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            border-radius: 16px;
+            z-index: 2;
+        }
+
+        .strategy-card:hover::before {
+            opacity: 1;
+        }
+
+        .strategy-card .spotlight-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                300px circle at 50% 50%,
+                rgba(255, 107, 120, 0.8),
+                rgba(255, 107, 120, 0.4) 40%,
+                rgba(255, 107, 120, 0.2) 70%,
+                transparent 90%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            border-radius: 16px;
+            z-index: 2;
+            display: block;
         }
 
         .strategy-card:hover {
@@ -736,6 +842,9 @@
             height: auto;
             object-fit: contain;
             border-radius: 12px;
+            position: relative;
+            z-index: 1;
+            pointer-events: none;
         }
 
         .interface-display-title {
@@ -883,7 +992,8 @@
             overflow: hidden;
             width: 420px;
             min-height: 260px;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            will-change: transform;
         }
 
         .card::before {
@@ -1039,8 +1149,9 @@
             z-index: 1;
             transform: translateY(0);
             opacity: 0;
-            transition: all 7s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 1.5s ease-out;
             pointer-events: none;
+            will-change: transform, opacity;
         }
 
         .bottom-cards-container.revealed {
@@ -1050,7 +1161,7 @@
         }
 
         .bottom-card {
-            background: url('Photo/card.png');
+            background: url('Photo/card.jpg');
             background-size: cover;
             background-position: center;
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1213,41 +1324,6 @@
             line-height: 1.4;
         }
 
-        /* 转动的小orb bullet效果 */
-        .orb-bullet {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background: radial-gradient(circle, #FFEB77 0%, #FF6778 50%, #E9685E 100%);
-            border-radius: 50%;
-            margin-right: 8px;
-            animation: orbRotate 2s linear infinite;
-            position: relative;
-            top: 2px;
-        }
-
-        @keyframes orbRotate {
-            0% {
-                transform: rotate(0deg);
-                background: radial-gradient(circle, #FFEB77 0%, #FF6778 50%, #E9685E 100%);
-            }
-            25% {
-                transform: rotate(90deg);
-                background: radial-gradient(circle, #FF6778 0%, #E9685E 50%, #FFEB77 100%);
-            }
-            50% {
-                transform: rotate(180deg);
-                background: radial-gradient(circle, #E9685E 0%, #FFEB77 50%, #FF6778 100%);
-            }
-            75% {
-                transform: rotate(270deg);
-                background: radial-gradient(circle, #FF6778 0%, #FFEB77 50%, #E9685E 100%);
-            }
-            100% {
-                transform: rotate(360deg);
-                background: radial-gradient(circle, #FFEB77 0%, #FF6778 50%, #E9685E 100%);
-            }
-        }
 
         .orb-title {
             position: absolute;
@@ -1562,11 +1638,11 @@
         
         <div class="eye-bubbles-title">眼动捕捉机制</div>
         
-        <div class="sentence-image-container">
+        <div class="sentence-image-container container-1200">
             <img src="Photo/sentence.png" alt="Sentence" class="sentence-image">
         </div>
         
-        <div class="info-modules-container">
+        <div class="info-modules-container container-1200">
             <div class="info-module">
                 <div class="info-module-label">意图识别（隐形）</div>
                 <div class="info-module-content">前置摄像头追踪用户眼动，判断其注视的类别区域（如 App、网页块）超过阈值（例如 2s）。</div>
@@ -1583,6 +1659,7 @@
         <div class="strategy-card-container">
             <div class="strategy-card">
                 <img src="Photo/strat.png" alt="Strategy" class="strategy-image">
+                <div class="spotlight-overlay"></div>
             </div>
         </div>
         
@@ -1901,33 +1978,38 @@
             animate() {
                 let lastTime = 0;
                 let currentHover = 0;
+                let frameCount = 0;
 
                 const update = (t) => {
                     this.rafId = requestAnimationFrame(update);
                     const dt = (t - lastTime) * 0.001;
                     lastTime = t;
+                    frameCount++;
 
-                    this.gl.uniform1f(this.iTimeLocation, t * 0.001);
-                    this.gl.uniform1f(this.hueLocation, this.hue);
-                    this.gl.uniform1f(this.hoverIntensityLocation, this.hoverIntensity);
+                    // 降低更新频率，每2帧更新一次
+                    if (frameCount % 2 === 0) {
+                        this.gl.uniform1f(this.iTimeLocation, t * 0.001);
+                        this.gl.uniform1f(this.hueLocation, this.hue);
+                        this.gl.uniform1f(this.hoverIntensityLocation, this.hoverIntensity);
 
-                    const effectiveHover = this.forceHoverState ? 1 : this.targetHover;
-                    currentHover += (effectiveHover - currentHover) * 0.1;
-                    this.gl.uniform1f(this.hoverLocation, currentHover);
+                        const effectiveHover = this.forceHoverState ? 1 : this.targetHover;
+                        currentHover += (effectiveHover - currentHover) * 0.08; // 降低插值速度
+                        this.gl.uniform1f(this.hoverLocation, currentHover);
 
-                    if (this.rotateOnHover && effectiveHover > 0.5) {
-                        this.currentRot += dt * this.rotationSpeed;
+                        if (this.rotateOnHover && effectiveHover > 0.5) {
+                            this.currentRot += dt * this.rotationSpeed;
+                        }
+                        this.gl.uniform1f(this.rotLocation, this.currentRot);
+
+                        this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+                        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer);
+                        this.gl.vertexAttribPointer(this.positionLocation, 2, this.gl.FLOAT, false, 16, 0);
+                        this.gl.vertexAttribPointer(this.uvLocation, 2, this.gl.FLOAT, false, 16, 8);
+                        this.gl.enableVertexAttribArray(this.positionLocation);
+                        this.gl.enableVertexAttribArray(this.uvLocation);
+                        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
+                        this.gl.drawElements(this.gl.TRIANGLES, 6, this.gl.UNSIGNED_SHORT, 0);
                     }
-                    this.gl.uniform1f(this.rotLocation, this.currentRot);
-
-                    this.gl.clear(this.gl.COLOR_BUFFER_BIT);
-                    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer);
-                    this.gl.vertexAttribPointer(this.positionLocation, 2, this.gl.FLOAT, false, 16, 0);
-                    this.gl.vertexAttribPointer(this.uvLocation, 2, this.gl.FLOAT, false, 16, 8);
-                    this.gl.enableVertexAttribArray(this.positionLocation);
-                    this.gl.enableVertexAttribArray(this.uvLocation);
-                    this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
-                    this.gl.drawElements(this.gl.TRIANGLES, 6, this.gl.UNSIGNED_SHORT, 0);
                 };
 
                 this.rafId = requestAnimationFrame(update);
@@ -1963,11 +2045,21 @@
         const landingContainer = document.getElementById('landingContainer');
         const bottomCardsContainer = document.querySelector('.bottom-cards-container');
         let ticking = false;
+        let lastScrollY = 0;
+        const scrollThreshold = 5; // 滚动阈值，减少不必要的计算
 
         function updateBackground() {
             const scrollY = window.scrollY;
+            
+            // 如果滚动距离变化很小，跳过更新
+            if (Math.abs(scrollY - lastScrollY) < scrollThreshold) {
+                ticking = false;
+                return;
+            }
+            lastScrollY = scrollY;
+            
             const cardThreshold = 50; // 变成卡片的滚动阈值
-            const fadeThreshold = 300; // 开始淡出的滚动阈值
+            const fadeThreshold = 200; // 开始淡出的滚动阈值
             const bottomCardsThreshold = 100; // 底部卡片开始出现的滚动阈值
             const windowHeight = window.innerHeight;
             
@@ -2119,6 +2211,39 @@
         }
 
         window.addEventListener('scroll', requestTick);
+
+
+        // Strategy card spotlight effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const strategyCard = document.querySelector('.strategy-card');
+            const spotlightOverlay = document.querySelector('.spotlight-overlay');
+            
+            
+            if (strategyCard && spotlightOverlay) {
+                // 使用事件委托，监听整个document的鼠标移动
+                document.addEventListener('mousemove', function(e) {
+                    // 检查鼠标是否在strategy-card内
+                    const rect = strategyCard.getBoundingClientRect();
+                    const x = e.clientX;
+                    const y = e.clientY;
+                    
+                    if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+                        const relativeX = x - rect.left;
+                        const relativeY = y - rect.top;
+                        const percentageX = (relativeX / rect.width) * 100;
+                        const percentageY = (relativeY / rect.height) * 100;
+                        
+                        // 更新覆盖层的背景位置
+                        const newBackground = `radial-gradient(300px circle at ${percentageX}% ${percentageY}%, rgba(255, 107, 120, 0.6), rgba(255, 107, 120, 0.3) 40%, rgba(255, 107, 120, 0.1) 70%, transparent 90%)`;
+                        spotlightOverlay.style.background = newBackground;
+                        spotlightOverlay.style.opacity = '1';
+                    } else {
+                        // 鼠标不在卡片内时隐藏覆盖层
+                        spotlightOverlay.style.opacity = '0';
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>

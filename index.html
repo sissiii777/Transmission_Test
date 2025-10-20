@@ -269,6 +269,25 @@
             margin-top: 100vh;
             position: relative;
             z-index: 2;
+            /* 视觉停留效果 */
+            scroll-snap-align: start;
+            scroll-margin-top: 100px;
+        }
+
+        /* 滚动减速区域 - 应用到cards-container */
+        .cards-container::before {
+            content: '';
+            position: absolute;
+            top: -50vh;
+            left: 0;
+            right: 0;
+            height: 50vh;
+            background: linear-gradient(to bottom, 
+                rgba(248, 249, 250, 0) 0%, 
+                rgba(248, 249, 250, 0.3) 50%, 
+                rgba(248, 249, 250, 1) 100%);
+            z-index: 1;
+            pointer-events: none;
         }
 
         .cards-section-title {
@@ -279,8 +298,8 @@
             font-weight: 600;
             background: linear-gradient(135deg, 
                 #E9685E 0%, 
-                #F2AC3E 50%, 
-                #E9685E 100%);
+                #FFD677 50%, 
+                #EE0040 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -637,11 +656,49 @@
             background-size: 200% 200%;
             animation: titleGradient 3s ease-in-out infinite;
             text-align: center;
-            margin: 80px auto 0 auto;
+            margin: 180px auto 0 auto;
             position: relative;
             z-index: 10;
             max-width: 1000px;
             padding: 0 20px;
+        }
+
+        .tech-stack-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, 
+                #333 0%, 
+                #8d2a1a 30%, 
+                #333 50%, 
+                #ad2a1a 70%, 
+                #333 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: titleGradient 3s ease-in-out infinite;
+            text-align: center;
+            margin: 180px auto 0 auto;
+            position: relative;
+            z-index: 10;
+            max-width: 1000px;
+            padding: 0 20px;
+        }
+
+        .tech-graph-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tech-graph-image {
+            width: 1200px;
+            height: auto;
+            object-fit: contain;
         }
 
         @keyframes titleGradient {
@@ -1132,7 +1189,7 @@
 
         .card-text strong {
             font-weight: 700;
-            color: #E9685E;
+            color: #EE0040;
         }
 
         /* 底部卡片层样式 */
@@ -1503,7 +1560,7 @@
                 <div class="cards-section-title">快捷搜索：动机与痛点</div>
                 <div class="card">
                     <div class="card-content">
-                        <h3 class="card-subtitle"><span style="color: #E9685E;">启动类</span>意图</h3>
+                        <h3 class="card-subtitle"><span style="color: #EE0040;">启动类</span>意图</h3>
                         <div class="card-text-container">
                             <p class="card-text">为了节省时间，直接在<strong>搜索应用名称</strong>以打开应用，而不在主屏幕上翻找图标。</p>
                         </div>
@@ -1512,7 +1569,7 @@
                 
                 <div class="card">
                     <div class="card-content">
-                        <h3 class="card-subtitle"><span style="color: #E9685E;">信息查找</span>意图</h3>
+                        <h3 class="card-subtitle"><span style="color: #EE0040;">信息查找</span>意图</h3>
                         <div class="card-text-container">
                             <p class="card-text">利用搜索来<strong>查找信息或答案</strong>。用户在此情境下将搜索代替繁琐的浏览器任务步骤</p>
                             <p class="card-text">在手机的各个位置精确找到联系人、文件、笔记等分散信息。</p>
@@ -1522,7 +1579,7 @@
                 
                 <div class="card">
                     <div class="card-content">
-                        <h3 class="card-subtitle"><span style="color: #E9685E;">快捷操作</span>意图</h3>
+                        <h3 class="card-subtitle"><span style="color: #EE0040;">快捷操作</span>意图</h3>
                         <div class="card-text-container">
                             <p class="card-text">直接通过搜索框<strong>执行某项操作</strong>或<strong>到达应用内特定功能</strong>，免去APP内的操作步骤。</p>
                 </div>
@@ -1652,6 +1709,12 @@
                 <div class="info-module-label">用户确认动作（显式）</div>
                 <div class="info-module-content">超过阈值后，用户轻触屏幕任意区域确认意图，系统才进行搜索结构排序调整。</div>
             </div>
+        </div>
+        
+        <div class="tech-stack-title">技术栈结构图</div>
+        
+        <div class="tech-graph-container">
+            <img src="Photo/tech_graph.png" alt="技术栈结构图" class="tech-graph-image">
         </div>
         
         <div class="design-strategy-title">设计策略</div>
@@ -2087,28 +2150,28 @@
                 }
             }
             
-            // 步骤叠加图片动画效果
+            // 步骤叠加图片动画效果 - 更早触发
             const step1Overlay = document.querySelector('.step1-overlay');
             const step2Overlay = document.querySelector('.step2-overlay');
             const step3Overlay = document.querySelector('.step3-overlay');
             
             if (step1Overlay) {
                 const step1Rect = step1Overlay.getBoundingClientRect();
-                if (step1Rect.top < windowHeight * 0.8) {
+                if (step1Rect.top < windowHeight * 1.2) { // 从0.8改为1.2，更早触发
                     step1Overlay.classList.add('revealed');
                 }
             }
             
             if (step2Overlay) {
                 const step2Rect = step2Overlay.getBoundingClientRect();
-                if (step2Rect.top < windowHeight * 0.8) {
+                if (step2Rect.top < windowHeight * 1.2) { // 从0.8改为1.2，更早触发
                     step2Overlay.classList.add('revealed');
                 }
             }
             
             if (step3Overlay) {
                 const step3Rect = step3Overlay.getBoundingClientRect();
-                if (step3Rect.top < windowHeight * 0.8) {
+                if (step3Rect.top < windowHeight * 1.2) { // 从0.8改为1.2，更早触发
                     step3Overlay.classList.add('revealed');
                 }
             }
